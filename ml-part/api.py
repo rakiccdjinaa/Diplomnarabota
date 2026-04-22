@@ -13,7 +13,7 @@ model = Pipeline([
 model.fit(X, y)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app)  
 
 
 df = pd.read_csv("processed.cleveland.data", header=None)
