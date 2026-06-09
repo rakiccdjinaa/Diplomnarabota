@@ -55,26 +55,4 @@ Doctors can perform risk analysis for registered patients and review patient his
 
 - MySQL
 
-## Repository Structure
 
-```text
-cdss_project/
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   ├── angular.json
-│   └── tsconfig.json
-│
-├── heartdisease/
-│   ├── api.py
-│   ├── config.py
-│   ├── models/
-│   ├── routes/
-│   ├── rules/
-│   ├── states/
-│   └── datasets/
-│
-├── database_schema.sql
-└── README.md
