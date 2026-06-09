@@ -1,0 +1,332 @@
+<div class="dashboard">
+
+  <div class="top-bar">
+
+    <div>
+
+      <h1>CDSS Heart Diagnosis</h1>
+
+      <p>
+        Clinical Decision Support System
+      </p>
+
+    </div>
+
+    <div class="welcome-box">
+
+      Welcome Dr. {{ doctorName }}
+
+    </div>
+
+    <div class="top-buttons">
+
+      <button
+        class="history-btn"
+        (click)="goToHistory()"
+      >
+        View Patient History
+      </button>
+
+      <button
+        class="logout-btn"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="content-grid">
+
+    <!-- LEFT -->
+
+    <div class="card">
+
+      <h2>Patient Information</h2>
+
+      <div class="input-grid">
+
+        <div class="input-group">
+
+          <label>Select Patient</label>
+
+          <select [(ngModel)]="selectedPatientId">
+
+            <option [ngValue]="0">
+              Select patient
+            </option>
+
+            <option
+              *ngFor="let patient of patients"
+              [ngValue]="patient.id"
+            >
+
+              {{ patient.first_name }}
+              {{ patient.last_name }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>Age</label>
+
+          <input
+            type="number"
+            [(ngModel)]="formData.age"
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>Sex</label>
+
+          <select [(ngModel)]="formData.sex">
+
+            <option [value]="1">
+              Male
+            </option>
+
+            <option [value]="0">
+              Female
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>Blood Pressure</label>
+
+          <input
+            type="number"
+            [(ngModel)]="formData.trestbps"
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>Cholesterol</label>
+
+          <input
+            type="number"
+            [(ngModel)]="formData.chol"
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>Maximum Heart Rate</label>
+
+          <input
+            type="number"
+            [(ngModel)]="formData.thalach"
+          >
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="advanced-btn"
+        (click)="toggleAdvanced()"
+      >
+
+        {{ showAdvanced
+          ? 'Hide Advanced Parameters'
+          : 'Show Advanced Parameters' }}
+
+      </button>
+
+
+      <div
+        *ngIf="showAdvanced"
+        class="advanced-section"
+      >
+
+        <div class="input-grid">
+
+          <div class="input-group">
+
+            <label>Chest Pain Type</label>
+
+            <select [(ngModel)]="formData.cp">
+
+              <option [value]="0">Asymptomatic</option>
+              <option [value]="1">Typical Angina</option>
+              <option [value]="2">Atypical Angina</option>
+              <option [value]="3">Non-anginal Pain</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="input-group">
+
+            <label>Fasting Blood Sugar</label>
+
+            <select [(ngModel)]="formData.fbs">
+
+              <option [value]="0">Normal</option>
+              <option [value]="1">High</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="input-group">
+
+            <label>Exercise Angina</label>
+
+            <select [(ngModel)]="formData.exang">
+
+              <option [value]="0">No</option>
+              <option [value]="1">Yes</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="input-group">
+
+            <label>Oldpeak</label>
+
+            <input
+              type="number"
+              [(ngModel)]="formData.oldpeak"
+            >
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="analyze-btn"
+        (click)="submit()"
+        [disabled]="loading"
+      >
+
+        {{ loading ? 'Analyzing...' : 'Run Analysis' }}
+
+      </button>
+
+    </div>
+
+
+    <!-- RIGHT -->
+
+    <div class="card">
+
+      <h2>
+        Risk Assessment
+      </h2>
+
+      <div *ngIf="predictionResult">
+
+        <div
+          class="risk-box"
+          [ngClass]="{
+            'low-text': predictionResult.probability < 30,
+            'medium-text': predictionResult.probability >= 30 &&
+                           predictionResult.probability < 70,
+            'high-text': predictionResult.probability >= 70
+          }"
+        >
+
+          {{ predictionResult.probability }}%
+
+        </div>
+
+
+        <div
+          class="risk-status"
+          [ngClass]="{
+            'low-text': predictionResult.probability < 30,
+            'medium-text': predictionResult.probability >= 30 &&
+                           predictionResult.probability < 70,
+            'high-text': predictionResult.probability >= 70
+          }"
+        >
+
+          {{ getRiskLabel() }}
+
+        </div>
+
+
+        <div class="note">
+
+          Prediction generated using:
+
+          <ul>
+
+            <li>Ensemble Machine Learning</li>
+
+            <li>Expert Clinical Rules</li>
+
+          </ul>
+
+        </div>
+
+
+        <div
+          *ngIf="predictionResult.alerts?.length"
+          class="alerts"
+        >
+
+          <h3>
+            Clinical Alerts
+          </h3>
+
+          <ul>
+
+            <li
+              *ngFor="let alert of predictionResult.alerts"
+            >
+
+              {{ alert }}
+
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+
+      <div
+        *ngIf="!predictionResult"
+        class="empty"
+      >
+
+        Run analysis to generate a prediction.
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
