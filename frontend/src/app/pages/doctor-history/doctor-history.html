@@ -1,0 +1,96 @@
+<div class="dashboard">
+
+  <div class="top-bar">
+
+    <div>
+      <h1>Patient History</h1>
+      <p>Review previous cardiovascular risk analyses.</p>
+    </div>
+
+    <button
+      class="back-btn"
+      (click)="goBack()"
+    >
+      Back to Dashboard
+    </button>
+
+  </div>
+
+  <div class="card filter-card">
+
+    <div class="input-group">
+
+      <label>Select Patient</label>
+
+      <select [(ngModel)]="selectedPatientId">
+
+        <option [ngValue]="0">
+          Select patient
+        </option>
+
+        <option
+          *ngFor="let patient of patients"
+          [ngValue]="patient.id"
+        >
+          {{ patient.first_name }} {{ patient.last_name }}
+        </option>
+
+      </select>
+
+    </div>
+
+    <button
+      class="apply-btn"
+      (click)="loadPatientHistory()"
+    >
+      Apply
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Previous Analyses</h2>
+
+    <table *ngIf="history.length">
+
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Risk</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of history">
+
+          <td>{{ item.date }}</td>
+
+          <td>{{ item.risk }}%</td>
+
+          <td>
+            {{
+              item.risk < 30
+                ? 'Low Risk'
+                : item.risk < 70
+                  ? 'Moderate Risk'
+                  : 'High Risk'
+            }}
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <div
+      *ngIf="!history.length"
+      class="empty"
+    >
+      Select a patient and click Apply to view history.
+    </div>
+
+  </div>
+
+</div>
