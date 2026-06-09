@@ -1,0 +1,205 @@
+<div class="home-page">
+
+
+  <div class="hero-section">
+
+    <h1>
+      Clinical Decision
+      <br>
+      Support System
+    </h1>
+
+    <p class="subtitle">
+      Intelligent cardiovascular risk assessment platform powered by
+      machine learning and expert clinical rules.
+    </p>
+
+    <div class="tabs">
+
+      <button
+        [class.active]="activeTab === 'login'"
+        (click)="activeTab = 'login'"
+      >
+        Login
+      </button>
+
+      <button
+        [class.active]="activeTab === 'register'"
+        (click)="activeTab = 'register'"
+      >
+        Register
+      </button>
+
+    </div>
+
+
+
+    <div
+      class="auth-card"
+      *ngIf="activeTab === 'login'"
+    >
+
+      <h2>
+        Welcome Back
+      </h2>
+
+      <input
+        type="text"
+        placeholder="Username"
+        [(ngModel)]="loginUsername"
+      >
+
+      <input
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="loginPassword"
+      >
+
+      <p
+        *ngIf="loginError"
+        class="error-message"
+      >
+        {{ loginError }}
+      </p>
+
+      <button
+        class="submit-btn"
+        (click)="login()"
+      >
+        Login
+      </button>
+
+    </div>
+
+
+
+    <div
+      class="auth-card"
+      *ngIf="activeTab === 'register'"
+    >
+
+      <h2>
+        Create Account
+      </h2>
+
+      <input
+        type="text"
+        placeholder="First Name"
+        [(ngModel)]="registerData.first_name"
+      >
+
+      <input
+        type="text"
+        placeholder="Last Name"
+        [(ngModel)]="registerData.last_name"
+      >
+
+      <input
+        type="text"
+        placeholder="Username"
+        [(ngModel)]="registerData.username"
+      >
+
+      <input
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="registerData.password"
+      >
+
+      <select
+        [(ngModel)]="registerData.role"
+      >
+
+        <option value="patient">
+          Patient
+        </option>
+
+        <option value="doctor">
+          Doctor
+        </option>
+
+      </select>
+
+      <input
+        *ngIf="registerData.role === 'doctor'"
+        type="text"
+        placeholder="Medical License"
+        [(ngModel)]="registerData.license_number"
+      >
+
+      <p
+        *ngIf="registerError"
+        class="error-message"
+      >
+        {{ registerError }}
+      </p>
+
+      <button
+        class="submit-btn"
+        (click)="register()"
+      >
+        Register
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="info-section">
+
+    <img
+      src="images/homepagepic.png"
+      alt="CDSS"
+      class="hero-image"
+    >
+
+    <h2>
+      What is CDSS?
+    </h2>
+
+    <p>
+      A Clinical Decision Support System (CDSS) assists healthcare
+      professionals in evaluating patient information and supporting
+      clinical decision-making.
+    </p>
+
+    <p>
+      This platform combines machine learning models and expert
+      clinical rules to provide cardiovascular risk assessment,
+      patient monitoring and clinical alerts.
+    </p>
+
+    <ul>
+
+      <li>
+        Cardiovascular Risk Prediction
+      </li>
+
+      <li>
+        Ensemble Machine Learning
+      </li>
+
+      <li>
+        Expert Clinical Rules
+      </li>
+
+      <li>
+        Patient History Tracking
+      </li>
+
+      <li>
+        JWT Authentication
+      </li>
+
+      <li>
+        Clinical Alerts
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
