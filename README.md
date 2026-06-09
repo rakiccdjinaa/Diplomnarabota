@@ -1,49 +1,80 @@
 # CDSS Heart Diagnosis System
 
-This is a Clinical Decision Support System (CDSS) designed to predict cardiovascular diseases. The project integrates a modern web interface, a robust backend API, and a Machine Learning service trained on multiple international datasets.
+Clinical Decision Support System (CDSS) for cardiovascular risk assessment using Angular, Flask, MySQL and Machine Learning.
 
-## 🚀 Project Overview
-The system uses medical parameters (age, cholesterol, blood pressure, etc.) to assess the risk of heart disease and categorize potential conditions using different Machine Learning models.
+## Project Overview
 
-### Key Features:
-- **Multimodal Analysis:** Combines data from Cleveland, Hungarian, and Swiss datasets.
-- **Real-time Diagnostics:** Provides instant risk percentage and diagnostic status.
-- **Multi-Algorithm Support:** Utilizes Logistic Regression, Random Forest, and SVM for comparative accuracy.
+This application helps doctors assess the risk of cardiovascular disease based on patient medical parameters such as age, cholesterol, blood pressure, heart rate and other clinical values.
 
----
+The system supports two user roles:
 
-## 🛠 Tech Stack
+- Doctor
+- Patient
+
+Doctors can perform risk analysis for registered patients and review patient history. Patients can log in and view their previous risk assessments.
+
+## Key Features
+
+- User registration and login
+- Doctor and patient roles
+- Medical license validation for doctors
+- JWT authentication
+- Cardiovascular risk prediction
+- Risk classification: Low, Moderate, High
+- Clinical alerts based on expert rules
+- Patient diagnosis history
+- Doctor access to patient history
+- MySQL database integration
+
+## Tech Stack
 
 ### Frontend
-- **Framework:** Angular 17+
-- **Styling:** Tailwind CSS
-- **Features:** Multi-step forms and dynamic result visualization.
 
-### Backend (Java)
-- **Framework:** Spring Boot
-- **Build Tool:** Maven
-- **Role:** Orchestrates communication between the UI and the ML service.
+- Angular
+- TypeScript
+- HTML
+- CSS
 
-### ML Service (Python)
-- **Framework:** Flask
-- **Libraries:** Scikit-learn, Pandas, NumPy
-- **Models:** Logistic Regression, Random Forest, SVM
+### Backend
 
----
+- Python
+- Flask
+- Flask-CORS
+- Flask-JWT-Extended
+- SQLAlchemy
+- PyMySQL
 
-## 📂 Repository Structure
-The project is organized into three main services:
+### Machine Learning
 
-1. **`/frontend`**: Angular source code, components, and styling.
-2. **`/backend-java`**: Spring Boot application logic and API endpoints.
-3. **`/ml-service`**: Python scripts for model training and real-time prediction, including datasets (`.data` files).
+- Scikit-learn
+- Pandas
+- NumPy
+- Joblib
 
----
+### Database
 
-## ⚙️ Setup and Installation
+- MySQL
 
-### 1. ML Service (Python)
-Navigate to the `ml-service` folder and install dependencies:
-```bash
-pip install flask pandas scikit-learn flask-cors
-python api.py
+## Repository Structure
+
+```text
+cdss_project/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── angular.json
+│   └── tsconfig.json
+│
+├── heartdisease/
+│   ├── api.py
+│   ├── config.py
+│   ├── models/
+│   ├── routes/
+│   ├── rules/
+│   ├── states/
+│   └── datasets/
+│
+├── database_schema.sql
+└── README.md
