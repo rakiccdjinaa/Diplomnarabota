@@ -5,10 +5,13 @@ from models.user import db
 from routes.auth_routes import auth_bp
 from routes.diagnosis_routes import diagnosis_bp
 from flask_jwt_extended import JWTManager
+import os
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
 
 app.config.from_object(Config)
-app.config["JWT_SECRET_KEY"] = "cdss_project_2026_key"
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 
 jwt = JWTManager(app)
 CORS(app)
